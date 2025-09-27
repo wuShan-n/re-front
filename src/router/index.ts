@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import MainLayout from '@/layouts/MainLayout.vue'
 
 const routes: RouteRecordRaw[] = [
     {
@@ -19,34 +20,47 @@ const routes: RouteRecordRaw[] = [
         meta: { requiresAuth: false }
     },
     {
-        path: '/characters',
-        name: 'CharacterList',
-        component: () => import('@/views/character/CharacterList.vue'),
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/characters/create',
-        name: 'CharacterCreate',
-        component: () => import('@/views/character/CharacterCreate.vue'),
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/characters/:id',
-        name: 'CharacterDetail',
-        component: () => import('@/views/character/CharacterDetail.vue'),
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/chat/:conversationId',
-        name: 'ChatRoom',
-        component: () => import('@/views/chat/ChatRoom.vue'),
-        meta: { requiresAuth: true }
-    },
-    {
-        path: '/knowledge',
-        name: 'KnowledgeList',
-        component: () => import('@/views/knowledge/KnowledgeList.vue'),
-        meta: { requiresAuth: true }
+        path: '/',
+        component: MainLayout,
+        meta: { requiresAuth: true },
+        children: [
+            {
+                path: 'characters',
+                name: 'CharacterList',
+                component: () => import('@/views/character/CharacterList.vue')
+            },
+            {
+                path: 'characters/create',
+                name: 'CharacterCreate',
+                component: () => import('@/views/character/CharacterCreate.vue')
+            },
+            {
+                path: 'characters/:id',
+                name: 'CharacterDetail',
+                component: () => import('@/views/character/CharacterDetail.vue')
+            },
+            {
+                path: 'characters/:id/edit',
+                name: 'CharacterEdit',
+                component: () => import('@/views/character/CharacterCreate.vue'),
+                props: { isEdit: true }
+            },
+            {
+                path: 'conversations',
+                name: 'ConversationList',
+                component: () => import('@/views/chat/ConversationList.vue')
+            },
+            {
+                path: 'chat/:conversationId',
+                name: 'ChatRoom',
+                component: () => import('@/views/chat/ChatRoom.vue')
+            },
+            {
+                path: 'knowledge',
+                name: 'KnowledgeList',
+                component: () => import('@/views/knowledge/KnowledgeList.vue')
+            }
+        ]
     }
 ]
 
@@ -56,10 +70,10 @@ const router = createRouter({
 })
 
 // 路由守卫
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
     const authStore = useAuthStore()
 
-    if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+    if (to.meta.requiresAuth !== false && !authStore.isLoggedIn) {
         next('/login')
     } else if (!to.meta.requiresAuth && authStore.isLoggedIn && (to.path === '/login' || to.path === '/register')) {
         next('/characters')
