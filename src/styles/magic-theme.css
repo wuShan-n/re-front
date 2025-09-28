@@ -1,0 +1,394 @@
+/* 哈利波特魔法主题样式 - 优化版 */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* 魔法主题颜色 - 优化版 */
+  --magic-gold: #FFD700;
+  --magic-silver: #E8E8E8;
+  --magic-crimson: #DC143C;
+  --magic-forest: #228B22;
+  --magic-purple: #6A0DAD;
+  --magic-blue: #1E40AF;
+  --magic-dark: #0F0F0F;
+  --magic-light: #FAFAFA;
+  --magic-parchment: #F7F3E9;
+  --magic-ink: #2C1810;
+  --magic-shadow: rgba(0, 0, 0, 0.1);
+  --magic-glow: rgba(255, 215, 0, 0.3);
+  
+  /* 魔法字体 */
+  --font-magic-title: 'Cinzel', serif;
+  --font-magic-body: 'Cormorant Garamond', serif;
+  --font-modern: 'Inter', sans-serif;
+  
+  /* 魔法渐变 */
+  --gradient-magic: linear-gradient(135deg, var(--magic-purple) 0%, var(--magic-blue) 50%, var(--magic-forest) 100%);
+  --gradient-gold: linear-gradient(135deg, var(--magic-gold) 0%, #FFA500 100%);
+  --gradient-silver: linear-gradient(135deg, var(--magic-silver) 0%, #C0C0C0 100%);
+}
+
+/* 魔法动画 - 优化版 */
+@keyframes sparkle {
+  0%, 100% { 
+    opacity: 0; 
+    transform: scale(0.8) rotate(0deg); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: scale(1.2) rotate(180deg); 
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+@keyframes glow {
+  0%, 100% { 
+    box-shadow: 0 0 10px var(--magic-glow);
+    filter: brightness(1);
+  }
+  50% { 
+    box-shadow: 0 0 25px var(--magic-glow), 0 0 40px var(--magic-glow);
+    filter: brightness(1.1);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes magic-dust {
+  0% { 
+    transform: translateY(0) rotate(0deg) scale(1); 
+    opacity: 1; 
+  }
+  100% { 
+    transform: translateY(-120px) rotate(360deg) scale(0.5); 
+    opacity: 0; 
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* 魔法背景效果 - 优化版 */
+.magic-background {
+  background: var(--gradient-magic);
+  background-size: 400% 400%;
+  animation: shimmer 12s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+.magic-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 215, 0, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(232, 232, 232, 0.2) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(106, 13, 173, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 60% 60%, rgba(30, 64, 175, 0.15) 0%, transparent 50%);
+  animation: float 8s ease-in-out infinite;
+}
+
+/* 魔法卡片效果 - 优化版 */
+.magic-card {
+  background: var(--magic-parchment);
+  border: 3px solid transparent;
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.1),
+    0 8px 16px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.magic-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: var(--gradient-gold);
+  border-radius: 20px;
+  z-index: -1;
+  animation: shimmer 4s linear infinite;
+}
+
+.magic-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    transparent 30%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 70%);
+  animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* 魔法按钮 - 优化版 */
+.magic-button {
+  background: var(--gradient-gold);
+  border: 2px solid var(--magic-gold);
+  color: var(--magic-dark);
+  font-family: var(--font-magic-title);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
+.magic-button:hover {
+  animation: glow 1.5s ease-in-out infinite;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.4);
+}
+
+.magic-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.6), 
+    transparent);
+  transition: left 0.6s ease;
+}
+
+.magic-button:hover::before {
+  left: 100%;
+}
+
+.magic-button:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
+/* 魔法输入框 - 优化版 */
+.magic-input {
+  background: var(--magic-light);
+  border: 2px solid var(--magic-gold);
+  border-radius: 15px;
+  color: var(--magic-ink);
+  font-family: var(--font-magic-body);
+  font-size: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.1);
+}
+
+.magic-input:focus {
+  border-color: var(--magic-purple);
+  box-shadow: 
+    0 0 20px rgba(106, 13, 173, 0.3),
+    0 8px 25px rgba(255, 215, 0, 0.2);
+  animation: glow 2s ease-in-out infinite;
+  transform: translateY(-2px);
+}
+
+.magic-input::placeholder {
+  color: var(--magic-silver);
+  font-style: italic;
+  transition: color 0.3s ease;
+}
+
+.magic-input:focus::placeholder {
+  color: var(--magic-purple);
+}
+
+/* 魔法文本 - 优化版 */
+.magic-title {
+  font-family: var(--font-magic-title);
+  font-weight: 700;
+  color: var(--magic-gold);
+  text-shadow: 
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(255, 215, 0, 0.5);
+  letter-spacing: 2px;
+  animation: fadeInUp 1s ease-out;
+}
+
+.magic-subtitle {
+  font-family: var(--font-magic-body);
+  color: var(--magic-silver);
+  font-style: italic;
+  font-size: 18px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.magic-text {
+  font-family: var(--font-magic-body);
+  color: var(--magic-ink);
+  line-height: 1.7;
+  font-size: 16px;
+}
+
+/* 魔法图标效果 - 优化版 */
+.magic-icon {
+  animation: sparkle 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px var(--magic-glow));
+  transition: all 0.3s ease;
+}
+
+.magic-icon:hover {
+  animation: float 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px var(--magic-glow));
+  transform: scale(1.1);
+}
+
+/* 魔法消息气泡 - 优化版 */
+.magic-message-user {
+  background: linear-gradient(135deg, var(--magic-crimson), var(--magic-purple));
+  color: var(--magic-light);
+  border: 2px solid var(--magic-gold);
+  box-shadow: 
+    0 8px 25px rgba(220, 20, 60, 0.3),
+    0 4px 12px rgba(255, 215, 0, 0.2);
+  animation: slideInRight 0.6s ease-out;
+}
+
+.magic-message-assistant {
+  background: var(--magic-parchment);
+  color: var(--magic-ink);
+  border: 2px solid var(--magic-silver);
+  box-shadow: 
+    0 8px 25px rgba(232, 232, 232, 0.3),
+    0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: slideInLeft 0.6s ease-out;
+}
+
+/* 魔法加载效果 - 优化版 */
+.magic-loading {
+  position: relative;
+}
+
+.magic-loading::after {
+  content: '✨';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: sparkle 1.2s ease-in-out infinite;
+  font-size: 20px;
+}
+
+/* 魔法粒子效果 - 优化版 */
+.magic-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.magic-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--magic-gold);
+  border-radius: 50%;
+  animation: magic-dust 4s linear infinite;
+  box-shadow: 0 0 10px var(--magic-gold);
+}
+
+.magic-particle:nth-child(odd) {
+  background: var(--magic-silver);
+  box-shadow: 0 0 10px var(--magic-silver);
+}
+
+.magic-particle:nth-child(3n) {
+  background: var(--magic-purple);
+  box-shadow: 0 0 10px var(--magic-purple);
+}
+
+/* 响应式魔法主题 - 优化版 */
+@media (max-width: 768px) {
+  .magic-title {
+    font-size: 24px;
+    letter-spacing: 1px;
+  }
+  
+  .magic-subtitle {
+    font-size: 16px;
+  }
+  
+  .magic-card {
+    border-radius: 15px;
+    margin: 10px;
+  }
+  
+  .magic-button {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .magic-title {
+    font-size: 20px;
+  }
+  
+  .magic-subtitle {
+    font-size: 14px;
+  }
+  
+  .magic-card {
+    border-radius: 12px;
+    margin: 5px;
+  }
+}
